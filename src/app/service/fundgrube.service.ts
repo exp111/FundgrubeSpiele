@@ -47,13 +47,17 @@ export class FundgrubeService {
     const postings = [];
     let offset = 0;
     let moreAvailable = true;
-    do {
-      const res = await firstValueFrom(this.http.get<FundgrubeResponse>(this.getUrl(url, this.LIMIT, offset)));
-      postings.push(...res.postings);
-      moreAvailable = res.morePostingsAvailable;
-      offset += this.LIMIT;
-      await this.delay(this.FETCH_DELAY);
-    } while (moreAvailable);
+    try {
+      do {
+        const res = await firstValueFrom(this.http.get<FundgrubeResponse>(this.getUrl(url, this.LIMIT, offset)));
+        postings.push(...res.postings);
+        moreAvailable = res.morePostingsAvailable;
+        offset += this.LIMIT;
+        await this.delay(this.FETCH_DELAY);
+      } while (moreAvailable);
+    } catch (e) {
+      console.error(`Got error during fetch: ${e}`);
+    }
     return postings;
   }
 
@@ -61,7 +65,7 @@ export class FundgrubeService {
     let dict: { [key: string]: Posting } = {};
     for (const posting of postings) {
       let cur = new Posting(posting);
-      if (cur.brand in brandBlacklist) {
+      if (brandBlacklist.includes(cur.brand)) {
         continue;
       }
 
