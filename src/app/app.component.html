@@ -1,6 +1,6 @@
 <div>
   <div>
-    <input type="text" [value]="searchFilter" (input)="filter()">
+    <input type="text" [(ngModel)]="searchFilter" (input)="filter()">
   </div>
   <div>
     <label [innerHTML]="'MM: ' + GetPostingCountOfSource(PostingSource.MediaMarkt)"></label>
