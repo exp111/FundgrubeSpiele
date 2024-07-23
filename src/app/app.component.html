@@ -1,16 +1,27 @@
 <div>
   <div>
-    <input type="text" (input)="onSearch($event)">
+    <input type="text" [value]="searchFilter" (input)="filter()">
   </div>
   <div>
     <label [innerHTML]="'MM: ' + GetPostingCountOfSource(PostingSource.MediaMarkt)"></label>
     <label [innerHTML]="'Saturn: ' + GetPostingCountOfSource(PostingSource.Saturn)"></label>
   </div>
   <div>
-    <input type="checkbox" checked="checked" (change)="onSourceChecked($event, PostingSource.MediaMarkt)">
+    <input type="checkbox" [(ngModel)]="showMM" (change)="filter()">
     <label>MM</label>
-    <input type="checkbox" checked="checked" (change)="onSourceChecked($event, PostingSource.Saturn)">
+    <input type="checkbox" [(ngModel)]="showSaturn" (change)="filter()">
     <label>Saturn</label>
+  </div>
+  <div>
+    <label>Sort by:</label>
+    <select [(ngModel)]="sortBy" (change)="filter()">
+      <option *ngFor="let entry of enumEntries(SortBy)"
+        value="{{entry[1]}}">
+        {{entry[0]}}
+      </option>
+    </select>
+    <input type="checkbox" [(ngModel)]="ascendingSort" (change)="filter()">
+    <label>Ascending?</label>
   </div>
 </div>
 <div class="d-flex flex-wrap gap-3">
