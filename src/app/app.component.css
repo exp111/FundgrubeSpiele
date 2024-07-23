@@ -1,9 +1,17 @@
-* > div
+.posting
 {
   width: calc(50% - 20px);
   outline: 1px solid black;
   margin: 5px;
   padding: 5px;
+}
+
+.saturn {
+  outline-color: orange;
+}
+
+.media-markt {
+  outline-color: red;
 }
 
 .image {

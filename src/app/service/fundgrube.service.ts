@@ -4,7 +4,7 @@ import {firstValueFrom} from "rxjs";
 import {FundgrubeResponse} from "../model/fundgrubeResponse";
 import {PostingDTO} from "../model/postingDTO";
 import {brandBlacklist} from "../data/brandBlacklist";
-import {Posting} from "../model/posting";
+import {Posting, PostingSource} from "../model/posting";
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +28,11 @@ export class FundgrubeService {
   }
 
   public GetMM() {
-    return this.Get(this.MMLink);
+    return this.Get(this.MMLink, PostingSource.MediaMarkt);
   }
 
   public GetSaturn() {
-    return this.Get(this.SaturnLink);
+    return this.Get(this.SaturnLink, PostingSource.Saturn);
   }
 
   public GetAll() {
@@ -56,15 +56,16 @@ export class FundgrubeService {
         await this.delay(this.FETCH_DELAY);
       } while (moreAvailable);
     } catch (e) {
-      console.error(`Got error during fetch: ${e}`);
+      console.error(`Got error during fetch`);
+      console.error(e);
     }
     return postings;
   }
 
-  private filterPostings(postings: PostingDTO[]) {
+  private filterPostings(postings: PostingDTO[], source: PostingSource) {
     let dict: { [key: string]: Posting } = {};
     for (const posting of postings) {
-      let cur = new Posting(posting);
+      let cur = new Posting(posting, source);
       if (brandBlacklist.includes(cur.brand)) {
         continue;
       }
@@ -86,9 +87,9 @@ export class FundgrubeService {
     return Object.values(dict);
   }
 
-  private async Get(url: string) {
+  private async Get(url: string, source: PostingSource) {
     console.log(`Fetching from ${url}`);
     const postings = await this.getPostings(url);
-    return this.filterPostings(postings);
+    return this.filterPostings(postings, source);
   }
 }

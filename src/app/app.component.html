@@ -1,5 +1,24 @@
+<div>
+  <div>
+    <input type="text" (input)="onSearch($event)">
+  </div>
+  <div>
+    <label [innerHTML]="'MM: ' + GetPostingCountOfSource(PostingSource.MediaMarkt)"></label>
+    <label [innerHTML]="'Saturn: ' + GetPostingCountOfSource(PostingSource.Saturn)"></label>
+  </div>
+  <div>
+    <input type="checkbox" checked="checked" (change)="onSourceChecked($event, PostingSource.MediaMarkt)">
+    <label>MM</label>
+    <input type="checkbox" checked="checked" (change)="onSourceChecked($event, PostingSource.Saturn)">
+    <label>Saturn</label>
+  </div>
+</div>
 <div class="d-flex flex-wrap gap-3">
-  <div *ngFor="let posting of this.postings">
+  <div *ngFor="let posting of this.filteredPostings"
+       class="posting"
+       [class.media-markt]="posting.source == PostingSource.MediaMarkt"
+       [class.saturn]="posting.source == PostingSource.Saturn"
+  >
     <p>{{ posting.name }} ({{ posting.brand }})</p>
     <p>{{ posting.samePriceCount }}/{{ posting.count }}</p>
     <p><b>{{ posting.total.toFixed(2) }}€</b> ({{ posting.price.toFixed(2) }} + {{ posting.shippingCost.toFixed(2) }})

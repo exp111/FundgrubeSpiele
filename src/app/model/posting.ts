@@ -1,6 +1,12 @@
 import {PostingDTO} from "./postingDTO";
 
+export enum PostingSource {
+  MediaMarkt,
+  Saturn
+}
+
 export class Posting {
+  source: PostingSource;
   name: string;
   brand: string;
   image: string;
@@ -10,7 +16,8 @@ export class Posting {
   count: number;
   samePriceCount: number;
 
-  constructor(dto: PostingDTO) {
+  constructor(dto: PostingDTO, source: PostingSource) {
+    this.source = source;
     this.name = dto.name;
     this.brand = dto.brand.name;
     this.image = dto.original_url.length > 0 ? dto.original_url[0] : "";
