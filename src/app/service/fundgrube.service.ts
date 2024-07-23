@@ -11,6 +11,7 @@ import {Posting} from "../model/posting";
 })
 export class FundgrubeService {
   private CORS_PROXY = "https://corsproxy.io/?";
+  private FETCH_DELAY = 200;
   private LIMIT = 99;
   private MMLink = "https://www.mediamarkt.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&categorieIds=CAT_DE_MM_8007";
   private SaturnLink = "https://www.saturn.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&recentFilter=categories&categorieIds=CAT_DE_SAT_2492";
@@ -38,6 +39,10 @@ export class FundgrubeService {
     return Promise.all([this.GetMM(), this.GetSaturn()])
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   private async getPostings(url: string) {
     const postings = [];
     let offset = 0;
@@ -47,6 +52,7 @@ export class FundgrubeService {
       postings.push(...res.postings);
       moreAvailable = res.morePostingsAvailable;
       offset += this.LIMIT;
+      await this.delay(this.FETCH_DELAY);
     } while (moreAvailable);
     return postings;
   }
