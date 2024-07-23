@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {Posting} from "../model/posting";
+import {Posting} from "./model/posting";
 import {FundgrubeService} from "./service/fundgrube.service";
 import {NgForOf} from "@angular/common";
 

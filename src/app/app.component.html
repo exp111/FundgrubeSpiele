@@ -1,7 +1,6 @@
-<html>
-<body>
 <div *ngFor="let posting of this.postings">
-  {{posting.name}} ({{posting.total}})
+  <p>{{posting.name}} ({{posting.brand}})</p>
+  <p>{{posting.samePriceCount}}/{{posting.count}}</p>
+  <p><b>{{posting.total.toFixed(2)}}€</b> ({{posting.price.toFixed(2)}} + {{posting.shippingCost.toFixed(2)}})</p>
+  <img class="image" loading="lazy" src="{{posting.image}}"/>
 </div>
-</body>
-</html>

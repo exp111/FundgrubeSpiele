@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
-import {FundgrubeResponse} from "../../model/fundgrubeResponse";
-import {PostingDTO} from "../../model/postingDTO";
-import {brandBlacklist} from "./brandBlacklist";
-import {Posting} from "../../model/posting";
+import {FundgrubeResponse} from "../model/fundgrubeResponse";
+import {PostingDTO} from "../model/postingDTO";
+import {brandBlacklist} from "../data/brandBlacklist";
+import {Posting} from "../model/posting";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FundgrubeService {
+  private CORS_PROXY = "https://corsproxy.io/?";
   private LIMIT = 99;
   private MMLink = "https://www.mediamarkt.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&categorieIds=CAT_DE_MM_8007";
   private SaturnLink = "https://www.saturn.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&recentFilter=categories&categorieIds=CAT_DE_SAT_2492";
@@ -17,8 +18,12 @@ export class FundgrubeService {
   constructor(public http: HttpClient) {
   }
 
+  private corsProxy(url: string) {
+    return `${this.CORS_PROXY}${encodeURIComponent(url)}`;
+  }
+
   private getUrl(url: string, count: number, offset: number) {
-    return url.replace("limit=0", `limit=${count}`).replace("offset=0", `offset=${offset}`);
+    return this.corsProxy(url.replace("limit=0", `limit=${count}`).replace("offset=0", `offset=${offset}`));
   }
 
   public GetMM() {
