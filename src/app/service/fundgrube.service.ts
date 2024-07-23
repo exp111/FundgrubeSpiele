@@ -60,24 +60,23 @@ export class FundgrubeService {
   private filterPostings(postings: PostingDTO[]) {
     let dict: { [key: string]: Posting } = {};
     for (const posting of postings) {
-      let name = posting.GetName();
-      let brand = posting.GetBrandName();
-      if (brand in brandBlacklist) {
+      let cur = new Posting(posting);
+      if (cur.brand in brandBlacklist) {
         continue;
       }
 
-      if (dict[name]) {
-        const obj = dict[name];
-        const curTotal = posting.GetTotal();
+      if (dict[cur.name]) {
+        const obj = dict[cur.name];
+        const curTotal = cur.total;
         const objTotal = obj.GetTotal();
         obj.increaseCount();
         if (objTotal > curTotal) {
-          obj.updatePrice(posting);
+          obj.updatePrice(cur);
         } else if (objTotal == curTotal) {
           obj.increaseSamePriceCount();
         }
       } else {
-        dict[name] = new Posting(posting);
+        dict[cur.name] = cur;
       }
     }
     return Object.values(dict);

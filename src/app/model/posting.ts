@@ -11,20 +11,20 @@ export class Posting {
   samePriceCount: number;
 
   constructor(dto: PostingDTO) {
-    this.name = dto.GetName();
-    this.brand = dto.GetBrandName();
-    this.image = dto.GetImage();
-    this.price = dto.GetPrice();
-    this.shippingCost = dto.GetShippingCost();
-    this.total = dto.GetTotal();
+    this.name = dto.name;
+    this.brand = dto.brand.name;
+    this.image = dto.original_url.length > 0 ? dto.original_url[0] : "";
+    this.price = Number(dto.price);
+    this.shippingCost = dto.shipping_cost;
+    this.total = this.price + this.shippingCost;
     this.count = 1;
     this.samePriceCount = 1;
   }
 
-  public updatePrice(dto: PostingDTO) {
-    this.total = dto.GetTotal();
-    this.price = dto.GetPrice();
-    this.shippingCost = dto.GetShippingCost();
+  public updatePrice(other: Posting) {
+    this.total = other.GetTotal();
+    this.price = other.GetPrice();
+    this.shippingCost = other.GetShippingCost();
     this.samePriceCount = 1;
   }
   public increaseCount() {
@@ -37,5 +37,11 @@ export class Posting {
 
   public GetTotal() {
     return this.total;
+  }
+  public GetPrice() {
+    return this.price;
+  }
+  public GetShippingCost() {
+    return this.shippingCost;
   }
 }
