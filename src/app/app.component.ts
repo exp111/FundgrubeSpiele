@@ -6,8 +6,10 @@ import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
 enum SortBy {
+  None,
   Name,
-  Price
+  Price,
+  Brand
 }
 
 @Component({
@@ -21,9 +23,9 @@ export class AppComponent implements OnInit {
   title = 'FundgrubeSpiele';
   allPostings: Posting[] = [];
   filteredPostings: Posting[] = [];
-  //TODO: save all filters here and use observe function
+  //TODO: use observe function for filter
   searchFilter: string = "";
-  sortBy: SortBy = SortBy.Price;
+  sortBy: SortBy = SortBy.None;
   ascendingSort: boolean = true;
   showMM: boolean = true;
   showSaturn: boolean = true;
@@ -67,10 +69,14 @@ export class AppComponent implements OnInit {
         let other = this.ascendingSort ? b : a;
         // we have to cast to number because the select sets it to it
         switch (Number(this.sortBy)) {
+          case Number(SortBy.None):
+            return 0;
           case Number(SortBy.Name):
             return first.name.localeCompare(other.name, undefined, {sensitivity: "base"});
           case Number(SortBy.Price):
             return first.price - other.price;
+          case Number(SortBy.Brand):
+            return first.brand.localeCompare(other.brand, undefined, {sensitivity: "base"});
         }
         throw new Error(`Unknown sort type: ${this.sortBy}`);
       });
