@@ -15,6 +15,8 @@ export class FundgrubeService {
   private LIMIT = 99;
   private MMLink = "https://www.mediamarkt.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&categorieIds=CAT_DE_MM_8007";
   private SaturnLink = "https://www.saturn.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&recentFilter=categories&categorieIds=CAT_DE_SAT_2492";
+  public MMHumanLink = this.GetHumanLink(this.MMLink);
+  public SaturnHumanLink = this.GetHumanLink(this.SaturnLink);
 
   constructor(public http: HttpClient) {
   }
@@ -25,6 +27,13 @@ export class FundgrubeService {
 
   private getUrl(url: string, count: number, offset: number) {
     return this.corsProxy(url.replace("limit=0", `limit=${count}`).replace("offset=0", `offset=${offset}`));
+  }
+
+  public GetHumanLink(url: string) {
+    return url
+      .replace("/api/postings", "")
+      .replace("limit=0&", "")
+      .replace("offset=0&", "");
   }
 
   public GetMM() {

@@ -1,27 +1,39 @@
 <div>
+  <div class="d-flex gap-3">
+    <a [href]="mmHumanLink">MediaMarkt</a>
+    <a [href]="saturnHumanLink">Saturn</a>
+  </div>
   <div>
     <input type="text" [(ngModel)]="searchFilter" (input)="filter()">
   </div>
-  <div>
+  <div class="d-flex gap-3">
     <label [innerHTML]="'MM: ' + GetPostingCountOfSource(PostingSource.MediaMarkt)"></label>
     <label [innerHTML]="'Saturn: ' + GetPostingCountOfSource(PostingSource.Saturn)"></label>
   </div>
-  <div>
-    <input type="checkbox" [(ngModel)]="showMM" (change)="filter()">
-    <label>MM</label>
-    <input type="checkbox" [(ngModel)]="showSaturn" (change)="filter()">
-    <label>Saturn</label>
+  <div class="d-flex gap-3">
+    <div class="d-flex gap-1">
+      <input type="checkbox" [(ngModel)]="showMM" (change)="filter()" id="showMM">
+      <label for="showMM">MM</label>
+    </div>
+    <div class="d-flex gap-1">
+      <input type="checkbox" [(ngModel)]="showSaturn" (change)="filter()" id="showSaturn">
+      <label for="showSaturn">Saturn</label>
+    </div>
   </div>
-  <div>
-    <label>Sort by:</label>
-    <select [(ngModel)]="sortBy" (change)="filter()">
-      <option *ngFor="let entry of enumEntries(SortBy)"
-        value="{{entry[1]}}">
-        {{entry[0]}}
-      </option>
-    </select>
-    <input type="checkbox" [(ngModel)]="ascendingSort" (change)="filter()">
-    <label>Ascending?</label>
+  <div class="d-flex gap-3">
+    <div class="d-flex gap-1">
+      <label for="sortBy">Sort by:</label>
+      <select [(ngModel)]="sortBy" (change)="filter()" id="sortBy">
+        <option *ngFor="let entry of enumEntries(SortBy)"
+                value="{{entry[1]}}">
+          {{ entry[0] }}
+        </option>
+      </select>
+    </div>
+    <div class="d-flex gap-1">
+      <input type="checkbox" [(ngModel)]="ascendingSort" (change)="filter()" id="ascendingSort">
+      <label for="ascendingSort">Ascending?</label>
+    </div>
   </div>
 </div>
 <div class="d-flex flex-wrap gap-3">

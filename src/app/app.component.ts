@@ -30,8 +30,13 @@ export class AppComponent implements OnInit {
   showMM: boolean = true;
   showSaturn: boolean = true;
 
+  mmHumanLink: string;
+  saturnHumanLink: string;
+
   constructor(public fundgrubeService: FundgrubeService) {
     (window as any).app = this;
+    this.mmHumanLink = fundgrubeService.MMHumanLink;
+    this.saturnHumanLink = fundgrubeService.SaturnHumanLink;
   }
 
   ngOnInit(): void {
