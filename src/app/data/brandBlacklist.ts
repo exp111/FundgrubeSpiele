@@ -77,7 +77,18 @@ const brandBlacklist = [
   "DER AUDIO",
   "BOARTI",
   "MATTEL GAMES",
-  "NORIS"
+  "NORIS",
+  "YUME",
+  "DICKIE-TOYS",
+  "EUROPA/SON",
+  "MILLENNIUM 2000",
+  "JADA",
+  "NERF",
+  "BRIO",
+  "CARSON",
+  "FUNKO",
+  "SAKAMI",
+  "PHATMOJO"
 ];
 
 export {
