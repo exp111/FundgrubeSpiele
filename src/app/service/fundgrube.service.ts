@@ -10,7 +10,7 @@ import {Posting, PostingSource} from "../model/posting";
   providedIn: 'root'
 })
 export class FundgrubeService {
-  private CORS_PROXY = "https://corsproxy.io/?";
+  private CORS_PROXY = "https://corsproxy.io/?url=";
   private FETCH_DELAY = 200;
   private LIMIT = 99;
   private MMLink = "https://www.mediamarkt.de/de/data/fundgrube/api/postings?limit=0&offset=0&orderBy=new&categorieIds=CAT_DE_MM_8007";
