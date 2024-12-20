@@ -37,15 +37,16 @@
   </div>
 </div>
 <div class="d-flex flex-wrap gap-3">
-  <div *ngFor="let posting of this.filteredPostings"
-       class="posting"
-       [class.media-markt]="posting.source == PostingSource.MediaMarkt"
-       [class.saturn]="posting.source == PostingSource.Saturn"
-  >
+  @for (posting of this.filteredPostings; track posting) {
+    <div class="posting"
+      [class.media-markt]="posting.source == PostingSource.MediaMarkt"
+      [class.saturn]="posting.source == PostingSource.Saturn"
+      >
     <p>{{ posting.name }} ({{ posting.brand }})</p>
     <p>{{ posting.samePriceCount }}/{{ posting.count }}</p>
     <p><b>{{ posting.total.toFixed(2) }}€</b> ({{ posting.price.toFixed(2) }} + {{ posting.shippingCost.toFixed(2) }})
     </p>
     <img class="image" loading="lazy" src="{{posting.image}}"/>
-  </div>
+    </div>
+  }
 </div>
