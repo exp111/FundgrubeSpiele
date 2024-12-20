@@ -11,6 +11,11 @@ export interface PostingDTO {
   eek: object;
   top_level_catalog_id: string;
   original_url: string[];
-  outlet: object;
+  outlet: OutletDTO;
   pim_id: number;
+}
+
+export interface OutletDTO {
+  id: number;
+  name: string;
 }

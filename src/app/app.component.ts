@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   title = 'FundgrubeSpiele';
   allPostings: Posting[] = [];
   filteredPostings: Posting[] = [];
-  //TODO: use observe function for filter
+  //TODO: use observe function for filter / pipe?
   searchFilter: string = "";
   sortBy: SortBy = SortBy.None;
   ascendingSort: boolean = true;

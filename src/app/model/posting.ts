@@ -15,6 +15,7 @@ export class Posting {
   shippingCost: number;
   count: number;
   samePriceCount: number;
+  outlet: string;
 
   constructor(dto: PostingDTO, source: PostingSource) {
     this.source = source;
@@ -26,14 +27,18 @@ export class Posting {
     this.total = this.price + this.shippingCost;
     this.count = 1;
     this.samePriceCount = 1;
+    this.outlet = dto.outlet.name;
   }
 
-  public updatePrice(other: Posting) {
+  // Updates the posting with another ones values
+  public updatePosting(other: Posting) {
     this.total = other.GetTotal();
     this.price = other.GetPrice();
     this.shippingCost = other.GetShippingCost();
     this.samePriceCount = 1;
+    this.outlet = other.outlet;
   }
+
   public increaseCount() {
     this.count += 1;
   }

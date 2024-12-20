@@ -85,7 +85,7 @@ export class FundgrubeService {
         const objTotal = obj.GetTotal();
         obj.increaseCount();
         if (objTotal > curTotal) {
-          obj.updatePrice(cur);
+          obj.updatePosting(cur);
         } else if (objTotal == curTotal) {
           obj.increaseSamePriceCount();
         }
